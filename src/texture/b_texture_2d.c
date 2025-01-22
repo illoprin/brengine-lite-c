@@ -23,6 +23,20 @@ GLuint tex2d_create(
 		LOG_MSG("Texture2D id = %u created and inited", texid);
 
 	return texid;
+}
+
+GLuint tex2d_from_bmp(const char* file_name, GLint filter, GLint wrapping)
+{
+	int  twidth, theight, tcomps;
+	char file_path[MAX_FILEPATH];
+
+	sprintf(file_path, DIR_TEXTURES "/%s", file_name);
+
+	unsigned char* image =
+		stbi_load(file_path, &twidth, &theight, &tcomps, 0);
+	GLuint tex = tex2d_create(image, twidth, theight, filter, wrapping);
+	free(image);
+	return tex;
 };
 
 void tex2d_bind_to_slot(GLint slot, GLuint texid)

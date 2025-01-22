@@ -22,8 +22,26 @@ mesh_t* create_mesh();
 
 GLuint mesh_add_buffer(mesh_t* mesh, void* data, size_t size_bytes);
 GLuint mesh_add_dynamic_buffer(mesh_t*, size_t reserve);
-void mesh_update_buffer(mesh_t*, uch index, size_t offset, void* data, size_t size_bytes);
-void mesh_add_attribute(mesh_t*, uch buffer_index, uch comps, size_t stride, size_t offset);
-void mesh_add_integer_attribute(mesh_t*, uch buffer_index, uch comps, size_t stride, size_t offset);
-void mesh_draw(mesh_t*, GLint mode);
+
+void   mesh_update_buffer(mesh_t*,
+                          uch    buffer_index,
+                          size_t offset,
+                          void*  data,
+                          size_t size_bytes);
+
+void   mesh_add_attribute(mesh_t*,
+                          uch    buffer_index,
+                          uch    comps,
+                          size_t stride,
+                          size_t offset);
+
+void   mesh_add_integer_attribute(mesh_t*,
+                                  uch    buffer_index,
+                                  uch    comps,
+                                  size_t stride,
+                                  size_t offset);
+
+void   mesh_draw(mesh_t*, GLint mode);
+void   mesh_draw_count(mesh_t* mesh, GLuint f, GLuint last);
+
 void mesh_release(mesh_t*);

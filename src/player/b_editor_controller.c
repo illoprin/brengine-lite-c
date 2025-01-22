@@ -9,17 +9,6 @@ editor_controller* create_editor_controller(vec3 position, vec2 rotation)
 	return ec;
 }
 
-void editor_controller_update(editor_controller* ec)
-{
-	if (is_game_mode)
-	{
-		ec_handle_keyboard(ec);
-		ec_handle_mouse_events(ec);
-		ec_process_movement(ec);	
-	}
-	camera_update_vectors(ec->camera);
-};
-
 void ec_handle_keyboard(editor_controller* ec)
 {
 	ec->states[PL_M_FORWARD] = glfwGetKey(b_window, GLFW_KEY_W);
@@ -63,6 +52,17 @@ void ec_process_movement(editor_controller* ec)
 		glm_vec3_add(cam->position, r_vel, cam->position);
 	if (states[PL_M_RIGHT] == GLFW_PRESS)
 		glm_vec3_sub(cam->position, r_vel, cam->position);
+};
+
+void editor_controller_update(editor_controller* ec)
+{
+	if (is_game_mode)
+	{
+		ec_handle_keyboard(ec);
+		ec_handle_mouse_events(ec);
+		ec_process_movement(ec);	
+	}
+	camera_update_vectors(ec->camera);
 };
 
 void editor_controller_release(editor_controller* ec)

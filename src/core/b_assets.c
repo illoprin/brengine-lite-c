@@ -96,12 +96,12 @@ model_triangle b_quad_tris[2] = {
 void assets_init()
 {
 	static float quad_v[] = {
-		1.f, -1.f, 1.f, 0.f,    // Left bottom
-		-1.f, -1.f, 0.f, 0.f,   // Right bottom
-		1.f, 1.f, 1.f, 1.f, 	// Left top
-		-1.f, -1.f, 0.f, 0.f, 	// Right bottom
-		-1.f, 1.f, 0.f, 1.f, 	// Right top
-		1.f, 1.f, 1.f, 1.f, 	// Left top
+	    1.f,  -1.f, 1.f, 0.f, // Left bottom
+	    -1.f, -1.f, 0.f, 0.f, // Right bottom
+	    1.f,  1.f,  1.f, 1.f, // Left top
+	    -1.f, -1.f, 0.f, 0.f, // Right bottom
+	    -1.f, 1.f,  0.f, 1.f, // Right top
+	    1.f,  1.f,  1.f, 1.f, // Left top
 	};
 
 	b_quad_2f = create_mesh();
@@ -123,8 +123,6 @@ void assets_init()
 	mesh_add_attribute(b_cube, 0, 2, sizeof(float) * 8, offsetof(model_vertex, texcoord));
 	mesh_add_attribute(b_cube, 0, 3, sizeof(float) * 8, offsetof(model_vertex, normal));
 	b_cube->vertices_count = 12 * 3;
-
-	mt_print(b_cube_tris, 12);
 
 	int iwidth, iheight, icomps;
 	uch* image = stbi_load(DIR_TEXTURES "/null.bmp", &iwidth, &iheight, &icomps, 0); 

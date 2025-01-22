@@ -5,6 +5,8 @@ in vec3 out_normal;
 in vec3 out_fragcoord_ws; // Fragment position in world space
 
 uniform sampler2D u_texture;
+uniform vec4 u_color;
+uniform bool u_use_texture;
 
 // Camera
 uniform vec3 u_cam_pos;
@@ -20,14 +22,22 @@ const vec3 t_mask = vec3(0.91, 0.11, 0.74);
 vec4 color_mask(vec4 color)
 {
 	vec3 d = abs(color.rgb - t_mask);
-	if (length(d) < .023) color.a = 0.0;
+	if (length(d) < .02) color.a = 0.0;
 	return color;
 }
 
 out vec4 frag_color;
 void main()
 {
-	vec4 diffuse_color = texture(u_texture, out_uv);
+	vec4 diffuse_color = vec4(1.0);
+	if (u_use_texture)
+	{
+		diffuse_color = texture(u_texture, out_uv);
+		diffuse_color = color_mask(diffuse_color);
+		if (diffuse_color.a < 0.05) discard;
+	}
+
+	diffuse_color *= u_color;
 
 	// Insert to changing color gamma mode
 	diffuse_color.rgb = pow(diffuse_color.rgb, vec3(u_gamma));

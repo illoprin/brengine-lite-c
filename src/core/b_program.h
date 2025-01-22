@@ -11,26 +11,24 @@
 #include <cglm/cglm.h>
 #include <core/b_log.h>
 
-
 typedef struct {
-	GLuint program_id;
+	GLuint id;
 	GLuint shaders[2];
 } static_shader;
 
 static_shader* create_shader();
 static_shader* create_shader_from_source(const char* vs, const char* fs);
-void use_program(static_shader*);
-void program_release(static_shader*);
+void           use_program(static_shader*);
+void           program_release(static_shader*);
 
 void program_set1f(GLuint id, const char* uniform_name, float);
 void program_set1i(GLuint id, const char* uniform_name, int);
-void program_set2f(GLuint id, const char* uniform_name, vec2);
-void program_set3f(GLuint id, const char* uniform_name, vec3);
-void program_set4f(GLuint id, const char* uniform_name, vec4);
-
-void program_setmat4(GLuint id, const char* uniform_name, mat4);
-void program_setmat3(GLuint id, const char* uniform_name, mat3);
-void program_setmat2(GLuint id, const char* uniform_name, mat2);
+void program_set2f(GLuint id, const char* uniform_name, float*);
+void program_set3f(GLuint id, const char* uniform_name, float*);
+void program_set4f(GLuint id, const char* uniform_name, float*);
+void program_setmat4(GLuint id, const char* uniform_name, float*);
+void program_setmat3(GLuint id, const char* uniform_name, float*);
+void program_setmat2(GLuint id, const char* uniform_name, float*);
 
 extern GLuint compile_shader(const char* source, GLenum type);
-extern void link_program(GLuint prog, uch count, ...);
+extern void   link_program(GLuint prog, uch count, ...);

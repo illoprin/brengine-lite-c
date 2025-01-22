@@ -4,8 +4,8 @@ static_shader* create_shader()
 {
 	static_shader* sh = (static_shader*)malloc(sizeof(static_shader));
 
-	sh->program_id = glCreateProgram();
-	LOG_MSG("Program with id = %u created", sh->program_id);
+	sh->id = glCreateProgram();
+	LOG_MSG("Program with id = %u created", sh->id);
 
 	return sh;
 };
@@ -31,7 +31,7 @@ static_shader* create_shader_from_source (const char* vs, const char* fs)
 	// Compile fragment shader
 	sh->shaders[1] = compile_shader(fs_source, GL_FRAGMENT_SHADER);
 
-	link_program(sh->program_id, 2, sh->shaders[0], sh->shaders[1]);
+	link_program(sh->id, 2, sh->shaders[0], sh->shaders[1]);
 
 	free(vs_source); free(fs_source);
 
@@ -42,7 +42,7 @@ void program_release(static_shader* s)
 {
 	if (s)
 	{
-		GLuint progid = s->program_id;
+		GLuint progid = s->id;
 		glDetachShader(progid, s->shaders[0]);
 		glDetachShader(progid, s->shaders[1]);
 
@@ -82,14 +82,14 @@ GLuint compile_shader(const char* source, GLenum type)
 
 void use_program(static_shader* sh)
 {
-	glUseProgram(sh->program_id);
+	glUseProgram(sh->id);
 }; 
 
 void link_program(GLuint prog, uch count, ...)
 {
 	va_list args;
 
-	va_start(args, count);
+	va_start(args, (int)count);
 
 	for (uch i = 0; i < count; ++i)
 		glAttachShader(prog, va_arg(args, GLuint));
@@ -133,34 +133,34 @@ void program_set1i(GLuint id, const char* uniform_name, int v)
 	GLuint loc = get_uniform_id(id, uniform_name);
 	if (loc >= 0) glUniform1i(loc, v);
 };
-void program_set2f(GLuint id, const char* uniform_name, vec2 v)
+void program_set2f(GLuint id, const char* uniform_name, float* v)
 {
 	GLuint loc = get_uniform_id(id, uniform_name);
 	if (loc >= 0) glUniform2f(loc, v[0], v[1]);
 };
-void program_set3f(GLuint id, const char* uniform_name, vec3 v)
+void program_set3f(GLuint id, const char* uniform_name, float* v)
 {
 	GLuint loc = get_uniform_id(id, uniform_name);
 	if (loc >= 0) glUniform3f(loc, v[0], v[1], v[2]);
 };
-void program_set4f(GLuint id, const char* uniform_name, vec4 v)
+void program_set4f(GLuint id, const char* uniform_name, float* v)
 {
 	GLuint loc = get_uniform_id(id, uniform_name);
 	if (loc >= 0) glUniform4f(loc, v[0], v[1], v[2], v[3]);
 };
 
-void program_setmat4(GLuint id, const char* uniform_name, mat4 v)
+void program_setmat4(GLuint id, const char* uniform_name, float* v)
 {
 	GLuint loc = get_uniform_id(id, uniform_name);
-	if (loc >= 0) glUniformMatrix4fv(loc, 1, GL_FALSE, &v[0][0]);
+	if (loc >= 0) glUniformMatrix4fv(loc, 1, GL_FALSE, v);
 };
-void program_setmat3(GLuint id, const char* uniform_name, mat3 v)
+void program_setmat3(GLuint id, const char* uniform_name, float* v)
 {
 	GLuint loc = get_uniform_id(id, uniform_name);
-	if (loc >= 0) glUniformMatrix3fv(loc, 1, GL_FALSE, &v[0][0]);
+	if (loc >= 0) glUniformMatrix3fv(loc, 1, GL_FALSE, v);
 };
-void program_setmat2(GLuint id, const char* uniform_name, mat2 v)
+void program_setmat2(GLuint id, const char* uniform_name, float* v)
 {
 	GLuint loc = get_uniform_id(id, uniform_name);
-	if (loc >= 0) glUniformMatrix2fv(loc, 1, GL_FALSE, &v[0][0]);
+	if (loc >= 0) glUniformMatrix2fv(loc, 1, GL_FALSE, v);
 };

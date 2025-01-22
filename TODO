@@ -1,0 +1,37 @@
+Jan 21:
+	- load from obj
+	- show textured models
+	- use framebuffers
+	
+Base:
+	- imgui implementation
+
+UI:
+	- font file reading
+	- font mesh building
+	- font rendering
+
+Renderer:
+	- post processing implementation
+	- spotlight
+
+FX:
+	- use dithered level textures
+	- use pixelization filter
+	- use ssao effect
+
+Game Data:
+	- bgf parser
+	- bgf loader
+	- build texture array
+	- build palette array
+
+Level Data:
+	- level data parser
+	- level data loader
+	- level mesh building
+	- level shader
+
+Rendering:
+	- default entity renderer
+	- level renderer

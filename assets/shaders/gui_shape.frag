@@ -22,14 +22,19 @@ void main()
 {
 	if (u_use_texture)
 	{
-		frag_color = texture(u_texture, out_uv);
-		frag_color = color_mask(frag_color);
-		if (frag_color.a < 0.1) discard;
-		frag_color *= u_color;
+		vec4 diffuse_color = texture(u_texture, out_uv);
+		
+		diffuse_color = color_mask(diffuse_color);
+		
+		if(diffuse_color.a < 0.05)
+			discard;
+		
+		diffuse_color *= u_color;
+		
+		frag_color = diffuse_color;
 	}
 	else
 	{
 		frag_color = u_color;
 	}
-	
 }

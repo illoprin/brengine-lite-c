@@ -5,13 +5,6 @@ void renderer_init()
 	// TODO: Create scene and gui framebuffers	
 };
 
-// -- Rendering process
-
-void renderer_process()
-{
-	
-};
-
 void renderer_start()
 {
 	ctx_clear();

@@ -54,8 +54,8 @@ void ctx_disable_face_culling()
 void ctx_clear()
 {
 	ctx_bind();
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-	glClearColor(0.066f, 0.066f, 0.066f, 1.f);
+	glClearColor(0.266f, 0.266f, 0.266f, 1.f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 };
 
 GLenum ctx_check_error(const char* file, int line)

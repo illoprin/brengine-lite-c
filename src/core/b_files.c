@@ -32,3 +32,31 @@ void init_filesystem()
 		exit(EXIT_FAILURE);
 	}
 };
+
+char* read_file(const char* fpath)
+{
+	FILE* file = fopen(fpath, "r");
+
+	if (!file)
+	{
+		LOG_ERR("Could not read file with path %s", fpath);
+		perror(fpath);
+		return NULL;
+	};
+
+	fseek(file, 0, SEEK_END);
+	size_t byte_size = ftell(file);
+	fseek(file, 0, SEEK_SET);
+
+	char* buffer = malloc(byte_size + 1);
+
+	fread(buffer, 1, byte_size, file);
+
+	buffer[byte_size] = '\0';
+
+	fclose(file);
+
+	LOG_MSG("File %s readed", fpath);
+
+	return buffer;
+}

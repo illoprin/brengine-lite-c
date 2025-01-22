@@ -143,6 +143,21 @@ void mesh_draw(mesh_t* mesh, GLint mode)
 	}
 };
 
+void mesh_draw_count(mesh_t* mesh, GLuint f, GLuint last)
+{
+	if (mesh->vertices_count > 0)
+	{
+		mesh_enable_attrs(mesh->__attributes);
+		glBindVertexArray(mesh->vao_id);
+		last = last <= mesh->vertices_count ? last : mesh->vertices_count;
+		glDrawArrays(GL_TRIANGLES, 0, last);
+		b_draw_calls++;
+		b_vertices += mesh->vertices_count;
+		glBindVertexArray(0);
+		mesh_disable_attrs(mesh->__attributes);
+	}
+}
+
 void mesh_release(mesh_t* mesh)
 {
 	if (mesh)

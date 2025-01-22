@@ -4,6 +4,7 @@
 #include <util/b_math.h>
 #include <util/defs.h>
 #include <cglm/cglm.h>
+#include <lsh/lp_math.h>
 #include <stdlib.h>
 #include <math.h>
 #include <core/b_window.h>
@@ -29,12 +30,10 @@ typedef struct {
 } camera_t;
 
 camera_t* camera_create(vec3 position, vec2 rot);
-void camera_update_vectors(camera_t*);
-void camera_set_position(camera_t*, vec3);
-void camera_set_rotation(camera_t*, float pitch, float yaw);
-void camera_move(camera_t*, vec3 dir);
-void camera_rotate(camera_t*, float pitch, float yaw);
-void camera_release(camera_t*);
+void      camera_update_vectors(camera_t*);
+void      camera_move(camera_t*, vec3 dir);
+void      camera_rotate(camera_t*, float pitch, float yaw);
+void      camera_release(camera_t*);
 
-void camera_projection(camera_t*, mat4 proj);
-void camera_view(camera_t*, mat4 view);
+inline void camera_projection(camera_t*, mat4 proj);
+inline void camera_view(camera_t*, mat4 view);
